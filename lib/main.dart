@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart'; 
+import 'dart:math';
 
  
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
 
       home: DefaultTabController( 
 
-        length: 4, 
+        length: 7, 
 
         child: _TabsNonScrollableDemo(), 
 
@@ -84,7 +85,7 @@ class __TabsNonScrollableDemoState extends State<_TabsNonScrollableDemo>
 
       initialIndex: 0, 
 
-      length: 4, 
+      length: 7, 
 
       vsync: this, 
 
@@ -116,15 +117,33 @@ class __TabsNonScrollableDemoState extends State<_TabsNonScrollableDemo>
 
   } 
 
- 
+   // Random function to generate a temperature between 20 and 60
+  int _generateRandomTemperature() {
+    Random random = Random();
+    return 20 + random.nextInt(41);
+  }
 
+  // List of random weather conditions
+  List<String> _weatherConditions = [
+    'Sunny',
+    'Cloudy',
+    'Rainy',
+    'Windy',
+    'Snowy',
+    'Stormy',
+  ];
+
+  String _generateRandomCondition() {
+    Random random = Random();
+    return _weatherConditions[random.nextInt(_weatherConditions.length)];
+  }
   @override 
 
   Widget build(BuildContext context) { 
 
 // For the ToDo task hint: consider defining the widget and name of the tabs here 
 
-    final tabs = ['Tab 1', 'Tab 2', 'Tab 3', 'Tab 4']; 
+    final tabs = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']; 
 
  
 
@@ -136,7 +155,7 @@ class __TabsNonScrollableDemoState extends State<_TabsNonScrollableDemo>
 
         title: Text( 
 
-          'Activity 01', 
+          'Weather App', 
 
         ), 
 
@@ -167,9 +186,15 @@ class __TabsNonScrollableDemoState extends State<_TabsNonScrollableDemo>
           for (final tab in tabs) 
 
             Center( 
-
-              child: Text(tab), 
-
+              child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Weather Info for $tab', style: TextStyle(fontSize: 24)),
+                  SizedBox(height: 10),
+                  Text('Temperature: ${_generateRandomTemperature()}°C'),
+                  Text('Condition: ${_generateRandomCondition()}'),
+                ],
+            ),
             ), 
 
         ], 
